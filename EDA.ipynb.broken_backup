@@ -1,4 +1,4 @@
-﻿{
+{
  "cells": [
   {
    "cell_type": "markdown",
@@ -6,8 +6,8 @@
    "metadata": {},
    "source": [
     "# Exploratory Data Analysis (EDA) - Dataset de ortopedia\n",
-    "Este notebook contem todo o processo de exploraÃ§Ã£o de dados da base de dados fornecida \"ML_Ortopedia_CPAK\" de forma a entender a estrutura, distribuiÃ§Ãµes, relacÃµes e identificar potenciais padrÃµes para desenvolver um modelo de Machine learning\n",
-    "## 1. VisÃ£o geral dos dados e informaÃ§Ã£o bÃ¡sica"
+    "Este notebook contem todo o processo de exploração de dados da base de dados fornecida \"ML_Ortopedia_CPAK\" de forma a entender a estrutura, distribuições, relacões e identificar potenciais padrões para desenvolver um modelo de Machine learning\n",
+    "## 1. Visão geral dos dados e informação básica"
    ]
   },
   {
@@ -94,7 +94,7 @@
        "      <th>WR_90</th>\n",
        "      <th>WAtotal_90</th>\n",
        "      <th>WT_90</th>\n",
-       "      <th>SatisfaÃ§Ã£o</th>\n",
+       "      <th>Satisfação</th>\n",
        "    </tr>\n",
        "  </thead>\n",
        "  <tbody>\n",
@@ -220,7 +220,7 @@
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
-       "<p>5 rows Ã— 22 columns</p>\n",
+       "<p>5 rows × 22 columns</p>\n",
        "</div>"
       ],
       "text/plain": [
@@ -238,7 +238,7 @@
        "3      2    390  ...         16    18     100       0     387      2      0   \n",
        "4      0    285  ...          8     8     125       1     284      0      1   \n",
        "\n",
-       "   WAtotal_90  WT_90  SatisfaÃ§Ã£o  \n",
+       "   WAtotal_90  WT_90  Satisfação  \n",
        "0           9     15           8  \n",
        "1           3     12           9  \n",
        "2           0      0          10  \n",
@@ -294,7 +294,7 @@
       " 18  WR_90       265 non-null    int64  \n",
       " 19  WAtotal_90  265 non-null    int64  \n",
       " 20  WT_90       265 non-null    int64  \n",
-      " 21  SatisfaÃ§Ã£o  265 non-null    int64  \n",
+      " 21  Satisfação  265 non-null    int64  \n",
       "dtypes: float64(2), int64(20)\n",
       "memory usage: 45.7 KB\n"
      ]
@@ -357,7 +357,7 @@
        "WR_90         0\n",
        "WAtotal_90    0\n",
        "WT_90         0\n",
-       "SatisfaÃ§Ã£o    0\n",
+       "Satisfação    0\n",
        "dtype: int64"
       ]
      },
@@ -367,7 +367,7 @@
     }
    ],
    "source": [
-    "#verificaÃ§Ã£o de valores nulos\n",
+    "#verificação de valores nulos\n",
     "ortho.isnull().sum()"
    ]
   },
@@ -376,9 +376,9 @@
    "id": "bcaababb",
    "metadata": {},
    "source": [
-    "**2.TransformaÃ§Ã£o dos dados**\n",
+    "**2.Transformação dos dados**\n",
     "\n",
-    "TransformaÃ§Ã£o da base de dados original para facilitar a anÃ¡lise"
+    "Transformação da base de dados original para facilitar a análise"
    ]
   },
   {
@@ -428,7 +428,7 @@
        "      <th>WR_90</th>\n",
        "      <th>WAtotal_90</th>\n",
        "      <th>WT_90</th>\n",
-       "      <th>SatisfaÃ§Ã£o</th>\n",
+       "      <th>Satisfação</th>\n",
        "    </tr>\n",
        "  </thead>\n",
        "  <tbody>\n",
@@ -506,7 +506,7 @@
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
-       "<p>3 rows Ã— 22 columns</p>\n",
+       "<p>3 rows × 22 columns</p>\n",
        "</div>"
       ],
       "text/plain": [
@@ -520,7 +520,7 @@
        "260      8    220  ...         41    57     115       1     340      1      1   \n",
        "261      7    160  ...         44    59     110       0     280      0      1   \n",
        "\n",
-       "     WAtotal_90  WT_90  SatisfaÃ§Ã£o  \n",
+       "     WAtotal_90  WT_90  Satisfação  \n",
        "259          12     18           9  \n",
        "260          16     18          10  \n",
        "261           6      7          10  \n",
@@ -546,7 +546,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# eliminar os casos com valores nulos, pois sÃ£o poucos e nÃ£o devem impactar a anÃ¡lise\n",
+    "# eliminar os casos com valores nulos, pois são poucos e não devem impactar a análise\n",
     "ortho = ortho.dropna(subset = ['Grupo_pre'])\n",
     "          "
    ]
@@ -581,7 +581,7 @@
        "WR_90         0\n",
        "WAtotal_90    0\n",
        "WT_90         0\n",
-       "SatisfaÃ§Ã£o    0\n",
+       "Satisfação    0\n",
        "dtype: int64"
       ]
      },
@@ -591,7 +591,7 @@
     }
    ],
    "source": [
-    "# verificar novamente a presenÃ§a de valores nulos\n",
+    "# verificar novamente a presença de valores nulos\n",
     "ortho.isnull().sum()"
    ]
   },
@@ -602,7 +602,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# conversÃ£o do tipo de \"grupo_pre\" para int64\n",
+    "# conversão do tipo de \"grupo_pre\" para int64\n",
     "ortho['Grupo_pre'] = ortho['Grupo_pre'].astype('int64')"
    ]
   },
@@ -613,10 +613,10 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# substituiÃ§Ã£o da codificaÃ§Ã£o da variavel 'Sexo' por outros valores numÃ©ricos para nÃ£o induzir o modelo em erro hierÃ¡rquico, \n",
-    "# onde o valor 2 (masculino) seria considerado maior que o valor 1 (feminino), o que nÃ£o Ã© o caso. \n",
+    "# substituição da codificação da variavel 'Sexo' por outros valores numéricos para não induzir o modelo em erro hierárquico, \n",
+    "# onde o valor 2 (masculino) seria considerado maior que o valor 1 (feminino), o que não é o caso. \n",
     "# original 1: feminino, 2: masculino\n",
-    "# nova codificaÃ§Ã£o 0: feminino, 1: masculino\n",
+    "# nova codificação 0: feminino, 1: masculino\n",
     "\n",
     "ortho.replace({'Sexo': {1: 0, 2: 1}}, inplace = True)"
    ]
@@ -628,7 +628,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# gerar a variavel de interesse \"mudanca_CPAK\" que indica se houve mudanÃ§a no grupo de classificaÃ§Ã£o entre o prÃ© e o pÃ³s-operatÃ³rio.\n",
+    "# gerar a variavel de interesse \"mudanca_CPAK\" que indica se houve mudança no grupo de classificação entre o pré e o pós-operatório.\n",
     "ortho['mudanca_CPAK'] = (ortho['Grupo_pre'] != ortho['Grupo_pos']).astype(int)"
    ]
   },
@@ -650,7 +650,7 @@
     }
    ],
    "source": [
-    "# verificar o numero de linhas e de colunas apÃ³s a limpeza dos dados\n",
+    "# verificar o numero de linhas e de colunas após a limpeza dos dados\n",
     "ortho.shape"
    ]
   },
@@ -690,7 +690,7 @@
       " 18  WR_90         262 non-null    int64  \n",
       " 19  WAtotal_90    262 non-null    int64  \n",
       " 20  WT_90         262 non-null    int64  \n",
-      " 21  SatisfaÃ§Ã£o    262 non-null    int64  \n",
+      " 21  Satisfação    262 non-null    int64  \n",
       " 22  mudanca_CPAK  262 non-null    int64  \n",
       "dtypes: float64(1), int64(22)\n",
       "memory usage: 49.1 KB\n"
@@ -748,7 +748,7 @@
        "      <th>WR_90</th>\n",
        "      <th>WAtotal_90</th>\n",
        "      <th>WT_90</th>\n",
-       "      <th>SatisfaÃ§Ã£o</th>\n",
+       "      <th>Satisfação</th>\n",
        "      <th>mudanca_CPAK</th>\n",
        "    </tr>\n",
        "  </thead>\n",
@@ -947,7 +947,7 @@
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
-       "<p>8 rows Ã— 23 columns</p>\n",
+       "<p>8 rows × 23 columns</p>\n",
        "</div>"
       ],
       "text/plain": [
@@ -981,7 +981,7 @@
        "75%    116.000000    3.000000  360.000000    4.000000    2.000000   15.000000   \n",
        "max    999.000000  999.000000  999.000000   11.000000    8.000000   40.000000   \n",
        "\n",
-       "            WT_90  SatisfaÃ§Ã£o  mudanca_CPAK  \n",
+       "            WT_90  Satisfação  mudanca_CPAK  \n",
        "count  262.000000  262.000000    262.000000  \n",
        "mean    14.740458   46.633588      0.099237  \n",
        "std     10.269613  190.084704      0.299552  \n",
@@ -1011,8 +1011,8 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# converter todos os 999 para NaN, estÃ£o fora de contexto e \n",
-    "# podem ser erros de introduÃ§Ã£o de dados/missing values.\n",
+    "# converter todos os 999 para NaN, estão fora de contexto e \n",
+    "# podem ser erros de introdução de dados/missing values.\n",
     "\n",
     "import numpy as np\n",
     "ortho.replace(999, np.nan, inplace=True)"
@@ -1048,7 +1048,7 @@
        "WR_90            0\n",
        "WAtotal_90       0\n",
        "WT_90            0\n",
-       "SatisfaÃ§Ã£o      10\n",
+       "Satisfação      10\n",
        "mudanca_CPAK     0\n",
        "dtype: int64"
       ]
@@ -1059,8 +1059,8 @@
     }
    ],
    "source": [
-    "# verificaÃ§Ã£o de valores nulos - trocou-se os 999 por NaN, \n",
-    "# agora Ã© possÃ­vel verificar a quantidade de valores nulos em cada coluna. \n",
+    "# verificação de valores nulos - trocou-se os 999 por NaN, \n",
+    "# agora é possível verificar a quantidade de valores nulos em cada coluna. \n",
     "ortho.isnull().sum()"
    ]
   },
@@ -1110,7 +1110,7 @@
        "      <th>WR_90</th>\n",
        "      <th>WAtotal_90</th>\n",
        "      <th>WT_90</th>\n",
-       "      <th>SatisfaÃ§Ã£o</th>\n",
+       "      <th>Satisfação</th>\n",
        "      <th>mudanca_CPAK</th>\n",
        "    </tr>\n",
        "  </thead>\n",
@@ -1309,7 +1309,7 @@
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
-       "<p>8 rows Ã— 23 columns</p>\n",
+       "<p>8 rows × 23 columns</p>\n",
        "</div>"
       ],
       "text/plain": [
@@ -1343,7 +1343,7 @@
        "75%    116.000000    2.750000  360.000000    4.000000    2.000000   15.000000   \n",
        "max    153.000000    8.000000  600.000000   11.000000    8.000000   40.000000   \n",
        "\n",
-       "            WT_90  SatisfaÃ§Ã£o  mudanca_CPAK  \n",
+       "            WT_90  Satisfação  mudanca_CPAK  \n",
        "count  262.000000   252.00000    262.000000  \n",
        "mean    14.740458     8.84127      0.099237  \n",
        "std     10.269613     1.49854      0.299552  \n",
@@ -1362,7 +1362,7 @@
     }
    ],
    "source": [
-    "#verificar novamente as estatisticas descritivas apÃ³s a conversÃ£o dos 999 para NaN\n",
+    "#verificar novamente as estatisticas descritivas após a conversão dos 999 para NaN\n",
     "ortho.describe()\n"
    ]
   },
@@ -1398,7 +1398,7 @@
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 23/23 [00:00<00:00, 3007.42it/s]\n"
+      "100%|██████████| 23/23 [00:00<00:00, 3007.42it/s]\n"
      ]
     },
     {
@@ -1541,7 +1541,7 @@
        "WR_90            0\n",
        "WAtotal_90       0\n",
        "WT_90            0\n",
-       "SatisfaÃ§Ã£o      10\n",
+       "Satisfação      10\n",
        "mudanca_CPAK     0\n",
        "dtype: int64"
       ]
@@ -1601,7 +1601,7 @@
        "      <th>WR_90</th>\n",
        "      <th>WAtotal_90</th>\n",
        "      <th>WT_90</th>\n",
-       "      <th>SatisfaÃ§Ã£o</th>\n",
+       "      <th>Satisfação</th>\n",
        "      <th>mudanca_CPAK</th>\n",
        "    </tr>\n",
        "  </thead>\n",
@@ -1656,7 +1656,7 @@
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
-       "<p>2 rows Ã— 23 columns</p>\n",
+       "<p>2 rows × 23 columns</p>\n",
        "</div>"
       ],
       "text/plain": [
@@ -1668,7 +1668,7 @@
        "53  109.0  ...    53   111.0     1.0   232.0      0      0           8      8   \n",
        "75  288.0  ...    45   110.0     2.0   277.0      0      1           5      6   \n",
        "\n",
-       "    SatisfaÃ§Ã£o  mudanca_CPAK  \n",
+       "    Satisfação  mudanca_CPAK  \n",
        "53         8.0             0  \n",
        "75        10.0             0  \n",
        "\n",
@@ -1706,8 +1706,8 @@
     }
    ],
    "source": [
-    "# os casos com valor nulo de IMC possuem tambÃ©m valores nulos de peso e altura, \n",
-    "# nÃ£o Ã© possivel calcular o IMC sem essas informaÃ§Ãµes, sendo lÃ³gico imputar a mediana nesses dois casos\n",
+    "# os casos com valor nulo de IMC possuem também valores nulos de peso e altura, \n",
+    "# não é possivel calcular o IMC sem essas informações, sendo lógico imputar a mediana nesses dois casos\n",
     "# sem mexer nas variaveis peso e altura\n",
     "\n",
     "ortho['IMC'].fillna(ortho['IMC'].median(), inplace=True) "
@@ -1771,7 +1771,7 @@
        "      <th>WR_90</th>\n",
        "      <th>WAtotal_90</th>\n",
        "      <th>WT_90</th>\n",
-       "      <th>SatisfaÃ§Ã£o</th>\n",
+       "      <th>Satisfação</th>\n",
        "      <th>mudanca_CPAK</th>\n",
        "    </tr>\n",
        "  </thead>\n",
@@ -1802,7 +1802,7 @@
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
-       "<p>1 rows Ã— 23 columns</p>\n",
+       "<p>1 rows × 23 columns</p>\n",
        "</div>"
       ],
       "text/plain": [
@@ -1812,7 +1812,7 @@
        "     EVA_0  PM6_0  ...  WT_0  Fle_90  EVA_90  PM6_90  WD_90  WR_90  \\\n",
        "202    5.0   10.0  ...    33    90.0     5.0   250.0      6      4   \n",
        "\n",
-       "     WAtotal_90  WT_90  SatisfaÃ§Ã£o  mudanca_CPAK  \n",
+       "     WAtotal_90  WT_90  Satisfação  mudanca_CPAK  \n",
        "202          23     33         6.0             0  \n",
        "\n",
        "[1 rows x 23 columns]"
@@ -1860,7 +1860,7 @@
        "WR_90            0\n",
        "WAtotal_90       0\n",
        "WT_90            0\n",
-       "SatisfaÃ§Ã£o      10\n",
+       "Satisfação      10\n",
        "mudanca_CPAK     0\n",
        "dtype: int64"
       ]
@@ -1871,7 +1871,7 @@
     }
    ],
    "source": [
-    "# verificar uma ultima vez a presenÃ§a de valores nulos \n",
+    "# verificar uma ultima vez a presença de valores nulos \n",
     "ortho.isnull().sum()    "
    ]
   },
@@ -1882,7 +1882,7 @@
    "source": [
     "## EDA\n",
     "\n",
-    "Depois de limpar os dados importa comeÃ§ar a exploraÃ§Ã£o dos dados propriamente dita. "
+    "Depois de limpar os dados importa começar a exploração dos dados propriamente dita. "
    ]
   },
   {
@@ -1972,7 +1972,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# criaÃ§Ã£o de cÃ³pia de dataframe para analise exploratÃ³ria \n",
+    "# criação de cópia de dataframe para analise exploratória \n",
     "ortho_eda = ortho.copy()\n",
     "# "
    ]
@@ -1984,7 +1984,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# criaÃ§Ã£o de variaveis dummies para as variÃ¡veis categÃ³ricas,numÃ©ricas e target\n",
+    "# criação de variaveis dummies para as variáveis categóricas,numéricas e target\n",
     "\n",
     "var_numericas = list(ortho_eda[[\"IMC\",\"Fle_0\",\"EVA_0\",\"PM6_0\",\"WR_0\",\"WAtotal_0\"]].columns)\n",
     "var_categoricas = list(ortho_eda[[\"Sexo\",\"Grupo_pre\",\"Grupo_pos\"]].columns)\n"
@@ -1995,9 +1995,9 @@
    "id": "d7058459",
    "metadata": {},
    "source": [
-    "### ComparaÃ§Ã£o estatÃ­stica das variÃ¡veis numÃ©ricas por classe (mudanca_CPAK)\n",
+    "### Comparação estatística das variáveis numéricas por classe (mudanca_CPAK)\n",
     "\n",
-    "Para cada variÃ¡vel numÃ©rica, compara-se a **mediana** e o **IQR** entre as classes 0 (sem mudanÃ§a) e 1 (com mudanÃ§a), e aplica-se o **teste de Mann-Whitney U** para verificar se as diferenÃ§as observadas nos boxplots sÃ£o estatisticamente significativas."
+    "Para cada variável numérica, compara-se a **mediana** e o **IQR** entre as classes 0 (sem mudança) e 1 (com mudança), e aplica-se o **teste de Mann-Whitney U** para verificar se as diferenças observadas nos boxplots são estatisticamente significativas."
    ]
   },
   {
@@ -2042,7 +2042,7 @@
        "      <th>Significativo (p&lt;0.05)</th>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>VariÃ¡vel</th>\n",
+       "      <th>Variável</th>\n",
        "      <th></th>\n",
        "      <th></th>\n",
        "      <th></th>\n",
@@ -2161,7 +2161,7 @@
       ],
       "text/plain": [
        "           N_classe0  N_classe1  Mediana_classe0  Mediana_classe1  \\\n",
-       "VariÃ¡vel                                                            \n",
+       "Variável                                                            \n",
        "EVA_0          236.0       26.0             6.00             5.50   \n",
        "Fle_0          236.0       26.0           110.00           120.00   \n",
        "IMC            236.0       26.0            28.87            25.56   \n",
@@ -2170,7 +2170,7 @@
        "WR_0           236.0       26.0             3.00             3.00   \n",
        "\n",
        "           IQR_classe0  IQR_classe1  Q1_classe0  Q1_classe1  Q3_classe0  \\\n",
-       "VariÃ¡vel                                                                  \n",
+       "Variável                                                                  \n",
        "EVA_0             3.00         3.50        4.00        3.50        7.00   \n",
        "Fle_0            28.00        26.75       92.00      106.25      120.00   \n",
        "IMC               5.33         7.02       26.67       23.87       32.01   \n",
@@ -2179,7 +2179,7 @@
        "WR_0              2.00         1.75        2.00        2.25        4.00   \n",
        "\n",
        "           Q3_classe1  U_statistic  p_value  Significativo (p<0.05)  \n",
-       "VariÃ¡vel                                                             \n",
+       "Variável                                                             \n",
        "EVA_0            7.00       3153.0   0.8161                   False  \n",
        "Fle_0          133.00       1908.0   0.0015                    True  \n",
        "IMC             30.89       3998.5   0.0112                    True  \n",
@@ -2203,7 +2203,7 @@
     "        q1 = grupo.quantile(0.25)\n",
     "        q3 = grupo.quantile(0.75)\n",
     "        results.append({\n",
-    "            'VariÃ¡vel': var,\n",
+    "            'Variável': var,\n",
     "            'Classe': classe,\n",
     "            'Mediana': round(grupo.median(), 2),\n",
     "            'IQR': round(q3 - q1, 2),\n",
@@ -2213,7 +2213,7 @@
     "        })\n",
     "\n",
     "df_stats = pd.DataFrame(results)\n",
-    "df_stats_pivot = df_stats.pivot(index='VariÃ¡vel', columns='Classe', values=['N', 'Mediana', 'IQR', 'Q1', 'Q3'])\n",
+    "df_stats_pivot = df_stats.pivot(index='Variável', columns='Classe', values=['N', 'Mediana', 'IQR', 'Q1', 'Q3'])\n",
     "df_stats_pivot.columns = [f'{stat}_classe{cls}' for stat, cls in df_stats_pivot.columns]\n",
     "\n",
     "# Teste Mann-Whitney U\n",
@@ -2222,9 +2222,9 @@
     "    g0 = ortho_eda[ortho_eda['mudanca_CPAK'] == 0][var].dropna()\n",
     "    g1 = ortho_eda[ortho_eda['mudanca_CPAK'] == 1][var].dropna()\n",
     "    stat, p = mannwhitneyu(g0, g1, alternative='two-sided')\n",
-    "    mw_results.append({'VariÃ¡vel': var, 'U_statistic': round(stat, 2), 'p_value': round(p, 4), 'Significativo (p<0.05)': p < 0.05})\n",
+    "    mw_results.append({'Variável': var, 'U_statistic': round(stat, 2), 'p_value': round(p, 4), 'Significativo (p<0.05)': p < 0.05})\n",
     "\n",
-    "df_mw = pd.DataFrame(mw_results).set_index('VariÃ¡vel')\n",
+    "df_mw = pd.DataFrame(mw_results).set_index('Variável')\n",
     "df_final = df_stats_pivot.join(df_mw)\n",
     "df_final"
    ]
@@ -2283,7 +2283,7 @@
     }
    ],
    "source": [
-    "# Boxplots com anotaÃ§Ã£o da mediana por classe\n",
+    "# Boxplots com anotação da mediana por classe\n",
     "fig, axes = plt.subplots(2, 3, figsize=(16, 10))\n",
     "axes = axes.flatten()\n",
     "\n",
@@ -2295,13 +2295,13 @@
     "        med = ortho_eda[ortho_eda['mudanca_CPAK'] == classe][var].median()\n",
     "        ax.text(x_pos, med, f'  Med={med:.1f}', va='center', fontsize=8, color='black', fontweight='bold')\n",
     "    \n",
-    "    # adicionar p-value no tÃ­tulo\n",
+    "    # adicionar p-value no título\n",
     "    p = df_mw.loc[var, 'p_value']\n",
     "    sig = '***' if p < 0.001 else ('**' if p < 0.01 else ('*' if p < 0.05 else 'ns'))\n",
     "    ax.set_title(f'{var}  (p={p:.4f} {sig})', fontsize=10)\n",
-    "    ax.set_xlabel('mudanca_CPAK (0=NÃ£o, 1=Sim)')\n",
+    "    ax.set_xlabel('mudanca_CPAK (0=Não, 1=Sim)')\n",
     "\n",
-    "plt.suptitle('Boxplots por classe â€” variÃ¡veis numÃ©ricas', fontsize=13, fontweight='bold', y=1.01)\n",
+    "plt.suptitle('Boxplots por classe — variáveis numéricas', fontsize=13, fontweight='bold', y=1.01)\n",
     "plt.tight_layout()\n",
     "plt.show()\n",
     "plt.close()"
@@ -2345,7 +2345,7 @@
     }
    ],
    "source": [
-    "# grÃ¡ficos de barras para as variÃ¡veis categÃ³ricas em relaÃ§Ã£o Ã  variÃ¡vel de interesse \"mudanca_CPAK\"\n",
+    "# gráficos de barras para as variáveis categóricas em relação à variável de interesse \"mudanca_CPAK\"\n",
     "for var in var_categoricas:\n",
     "    pd.crosstab(ortho_eda[var], ortho_eda['mudanca_CPAK']).plot(kind='bar', stacked=True, color=['lightcoral', 'limegreen'])\n",
     "    plt.title(var)\n",
@@ -2374,7 +2374,7 @@
    "id": "c686fbad",
    "metadata": {},
    "source": [
-    "# anÃ¡lise de correlaÃ§Ãµes e redundÃ¢ncia"
+    "# análise de correlações e redundância"
    ]
   },
   {
@@ -2384,12 +2384,12 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# separaÃ§Ã£o de datasets retirando as variÃ¡veis que causam data leakage\n",
-    "# (variaveis que reportam valores pÃ³s-operatÃ³rios)\n",
+    "# separação de datasets retirando as variáveis que causam data leakage\n",
+    "# (variaveis que reportam valores pós-operatórios)\n",
     "\n",
     "ortho_eda_clean = ortho_eda.drop(columns = [\n",
     "    'Grupo_pos','Fle_90','EVA_90','PM6_90','WD_90','WR_90','WAtotal_90',\n",
-    "    'WT_90', 'SatisfaÃ§Ã£o'\n",
+    "    'WT_90', 'Satisfação'\n",
     "    ]\n",
     "    )\n",
     "\n"
@@ -2737,7 +2737,7 @@
     }
    ],
    "source": [
-    "#analise de correlaÃ§Ã£o entre as variaveis numÃ©ricas e target\n",
+    "#analise de correlação entre as variaveis numéricas e target\n",
     "\n",
     "ortho_eda_clean.corr(method = 'spearman')"
    ]
@@ -2817,7 +2817,7 @@
     }
    ],
    "source": [
-    "# grÃ¡fico de correlaÃ§Ãµes com a target (variÃ¡vel dependente)\n",
+    "# gráfico de correlações com a target (variável dependente)\n",
     "correlations = ortho_eda_clean.corrwith(ortho_eda_clean['mudanca_CPAK'], method='spearman').iloc[:-1].to_frame()\n",
     "correlations['abs'] = correlations[0].abs()\n",
     "sorted_correlations = correlations.sort_values('abs', ascending=False)[0]\n",
@@ -2855,7 +2855,7 @@
     }
    ],
    "source": [
-    "# relaÃ§Ã£o entre Grupo_pre, PM6_0 e mudanca_CPAK\n",
+    "# relação entre Grupo_pre, PM6_0 e mudanca_CPAK\n",
     "plot_df = ortho_eda[['Grupo_pre', 'PM6_0', 'mudanca_CPAK']].dropna().copy()\n",
     "plot_df['Grupo_pre'] = plot_df['Grupo_pre'].astype(int).astype(str)\n",
     "plot_df['mudanca_CPAK'] = plot_df['mudanca_CPAK'].astype(int).astype(str)\n",
@@ -2884,7 +2884,7 @@
     "plt.title('PM6_0 por Grupo_pre e mudanca_CPAK')\n",
     "plt.xlabel('Grupo_pre')\n",
     "plt.ylabel('PM6_0')\n",
-    "plt.legend(title='mudanca_CPAK', labels=['0 (NÃ£o)', '1 (Sim)'])\n",
+    "plt.legend(title='mudanca_CPAK', labels=['0 (Não)', '1 (Sim)'])\n",
     "plt.tight_layout()\n",
     "plt.show()\n",
     "plt.close()"
@@ -2919,7 +2919,7 @@
     }
    ],
    "source": [
-    "# relaÃ§Ã£o entre Grupo_pre, Fle_0 e mudanca_CPAK\n",
+    "# relação entre Grupo_pre, Fle_0 e mudanca_CPAK\n",
     "plot_df = ortho_eda[['Grupo_pre', 'Fle_0', 'mudanca_CPAK']].dropna().copy()\n",
     "plot_df['Grupo_pre'] = plot_df['Grupo_pre'].astype(int).astype(str)\n",
     "plot_df['mudanca_CPAK'] = plot_df['mudanca_CPAK'].astype(int).astype(str)\n",
@@ -2948,7 +2948,7 @@
     "plt.title('Fle_0 por Grupo_pre e mudanca_CPAK')\n",
     "plt.xlabel('Grupo_pre')\n",
     "plt.ylabel('Fle_0')\n",
-    "plt.legend(title='mudanca_CPAK', labels=['0 (NÃ£o)', '1 (Sim)'])\n",
+    "plt.legend(title='mudanca_CPAK', labels=['0 (Não)', '1 (Sim)'])\n",
     "plt.tight_layout()\n",
     "plt.show()\n",
     "plt.close()"
@@ -2961,7 +2961,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "#guardar o dataframe limpo para a modelaÃ§Ã£o\n",
+    "#guardar o dataframe limpo para a modelação\n",
     "ortho_eda_clean.to_csv('ortho_eda_clean.csv', index=False)"
    ]
   },
@@ -2973,10 +2973,10 @@
    "outputs": [],
    "source": [
     "ortho_eda_sem_WT = ortho_eda.drop(columns = ['Grupo_pos','Fle_90','EVA_90','PM6_90','WD_90','WR_90','WAtotal_90',\n",
-    "    'WT_90', 'SatisfaÃ§Ã£o','WT_0'])\n",
+    "    'WT_90', 'Satisfação','WT_0'])\n",
     "ortho_eda_sem_componentes = ortho_eda.drop(columns = [\n",
     "    'WD_0','WR_0','WAtotal_0','Grupo_pos','Fle_90','EVA_90','PM6_90','WD_90','WR_90','WAtotal_90',\n",
-    "    'WT_90', 'SatisfaÃ§Ã£o'\n",
+    "    'WT_90', 'Satisfação'\n",
     "])"
    ]
   }
@@ -3003,3 +3003,193 @@
  "nbformat": 4,
  "nbformat_minor": 5
 }
+
+
+
+## MODELOS ## - mudei esta parte 
+
+# =========================
+# PREPARAÇÃO DOS DADOS
+# =========================
+
+from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
+import pandas as pd
+
+# 1. Definir X e y
+X = ortho.drop("mudanca_CPAK", axis=1)
+y = ortho["mudanca_CPAK"]
+
+# 2. Criar imputer
+imputer = SimpleImputer(strategy='median')
+
+# 3. Fit + transform
+X_imputed = imputer.fit_transform(X)
+
+# 4. Converter para DataFrame
+import pandas as pd
+X_imputed = pd.DataFrame(X_imputed, columns=X.columns)
+
+# 5. Verificar NaN
+X_imputed.isna().sum().sum()
+
+X_train,X_test, y_train, y_test = train_test_split(X,y,test_size=0.30,random_state=42, stratify=y)
+
+print("Distribuição da Target (CPAK) - Treino")
+print("N.observações Treino", len(X_train))
+print(y_train.value_counts(normalize=True))
+
+print("Distribuição da Target (CPAK) - Teste")
+print("N.observações Teste", len(X_test))
+print(y_test.value_counts(normalize=True))
+
+# Aplicar os modelos
+# Árvore de decisão
+
+from sklearn import tree
+
+clf_DT = tree.DecisionTreeClassifier(random_state=42)
+clf_DT = clf_DT.fit(X_train, y_train)
+
+y_pred_DT = clf_DT.predict(X_test)
+y_pred_DT
+
+# Confusion Matrix
+
+from sklearn.metrics import confusion_matrix
+
+confusion_matrix = confusion_matrix(y_test, y_pred_DT)
+print(confusion_matrix)
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.heatmap(confusion_matrix, annot=True, fmt='d',cmap='crest')
+plt.xlabel("Classe Prevista")
+plt.ylabel("Classe Real")
+
+plt.title("Matrix de confusão - Árvore de decisão")
+plt.show()
+
+
+from sklearn.metrics import classification_report
+
+print(classification_report(y_test, y_pred_DT))
+
+#Area Under the Curve (AUC)
+
+from sklearn.metrics import roc_auc_score
+
+auc = roc_auc_score(y_test, y_pred_DT)
+print("AUC:", auc)
+
+
+# Cross Validation: K-fold
+
+from sklearn.model_selection import cross_val_predict
+
+pred = cross_val_predict(clf_DT, X_imputed, y)
+
+print(classification_report(y, pred, digits=4))
+
+
+
+### Regressão logistica
+
+from sklearn.linear_model import LogisticRegression
+
+clf_LR = LogisticRegression(random_state=42)
+clf_LR = clf_LR.fit(X_train,y_train)
+
+y_pred_LR = clf_LR.predict(X_test)
+y_pred_LR_prob = clf_LR.predict_proba(X_test)
+print(y_pred_LR_prob)
+print(y_pred_LR)
+
+from sklearn.metrics import confusion_matrix
+
+c_matrix_LR = confusion_matrix(y_test, y_pred_LR)
+print(c_matrix_LR)
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.heatmap(c_matrix_LR, annot=True, fmt='d',cmap='crest')
+plt.xlabel("Classe Prevista")
+plt.ylabel("Classe Real")
+
+plt.title("Matrix de confusão - Regressão Logística")
+plt.show()
+
+from sklearn.metrics import classification_report
+
+print(classification_report(y_test, y_pred_LR))
+
+#Area Under the Curve (AUC)
+
+from sklearn.metrics import roc_auc_score
+
+auc = roc_auc_score(y_test, y_pred_LR)
+print("AUC:", auc)
+
+# Cross Validation: K-fold
+
+from sklearn.model_selection import cross_val_predict
+
+pred_cross_LR = cross_val_predict(clf_LR, X_imputed, y)
+
+print(classification_report(y, pred_cross_LR, digits=4))
+
+# Forest
+
+from sklearn.ensemble import RandomForestClassifier
+
+clf_RF = RandomForestClassifier(random_state=42)
+clf_RF = clf_RF.fit(X_train,y_train)
+
+y_pred_RF = clf_RF.predict(X_test)
+print(y_pred_RF)
+
+from sklearn.metrics import confusion_matrix
+
+confusion_matrix_RF = confusion_matrix(y_test, y_pred_RF)
+print(confusion_matrix_RF)
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.heatmap(confusion_matrix_RF, annot=True, fmt='d',cmap='crest')
+plt.xlabel("Classe Prevista")
+plt.ylabel("Classe Real")
+
+plt.title("Matrix de confusão - Forest Classifier")
+plt.show()
+
+from sklearn.metrics import classification_report
+
+print(classification_report(y_test, y_pred_RF))
+
+
+#Area Under the Curve (AUC)
+
+from sklearn.metrics import roc_auc_score
+
+auc = roc_auc_score(y_test, y_pred_RF)
+print("AUC:", auc)
+
+# Cross Validation: K-fold
+
+from sklearn.model_selection import cross_val_predict
+
+pred_cross_RF = cross_val_predict(clf_RF, X_imputed, y)
+
+print(classification_report(y, pred_cross_RF, digits=4))
+
+
+
+
+
+
+
+
