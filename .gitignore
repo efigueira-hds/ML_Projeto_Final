@@ -5,3 +5,4 @@
 *.venv
 *.csv
 agente/
+__pycache__/
