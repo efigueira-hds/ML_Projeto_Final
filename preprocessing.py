@@ -1,8 +1,7 @@
 """
 Pré-processamento partilhado pelos notebooks de modelação.
 
-Este módulo centraliza a lógica que estava copiada em vários notebooks
-(feedback #6 — conteúdo duplicado) e separa dois tipos de transformação:
+Este módulo centraliza a lógica e separa dois tipos de transformação:
 
 * Determinísticas / de domínio — seguras de aplicar ANTES do split porque
   não aprendem parâmetros a partir dos dados (999 -> NaN, recodificação de
@@ -11,14 +10,9 @@ Este módulo centraliza a lógica que estava copiada em vários notebooks
 
 * Aprendidas a partir dos dados — imputação pela mediana, scaling e SMOTE.
   Estas TÊM de ser ajustadas apenas com o treino, por isso vivem dentro de
-  uma `Pipeline`/`ColumnTransformer` (feedback #1 e #5). Assim, em cada fold
+  uma `Pipeline`/`ColumnTransformer`. Assim, em cada fold
   da validação cruzada só o treino é usado para as estimar.
-
-Nota: os notebooks devem carregar os dados por aqui (a partir do Excel
-original), e NÃO pelo `ortho_eda_clean.csv`, porque esse ficheiro já tem a
-imputação feita sobre todas as linhas (o que provocaria data leakage). O CSV
-continua válido apenas para exploração.
-"""
+  """
 
 import numpy as np
 import pandas as pd
@@ -54,15 +48,12 @@ def carregar_dados(caminho=CAMINHO_DADOS):
     df = pd.read_excel(caminho)
     df.columns = df.columns.str.strip()  # corrige o nome "Idade " (com espaço)
 
-    # 999 é um sentinela de valor em falta em toda a base (nunca é um valor
+    # 999 é uma flag de valor em falta em toda a base (nunca é um valor
     # clínico legítimo em nenhuma das variáveis) -> substituir por NaN.
     df = df.replace(999, np.nan)
 
     # O target depende de Grupo_pre E Grupo_pos. Removem-se os casos sem qualquer
-    # um deles: caso contrário, com Grupo_pos ausente, `Grupo_pre != NaN` seria
-    # sempre True (o pandas trata NaN como diferente de tudo) e a linha seria
-    # rotulada como mudança=1 de forma errada. Nos dados atuais Grupo_pos não tem
-    # ausentes, mas isto garante rótulos corretos se os dados mudarem.
+    # um deles.
     df = df.dropna(subset=["Grupo_pre", "Grupo_pos"])
     df["Grupo_pre"] = df["Grupo_pre"].astype("int64")
     df["Grupo_pos"] = df["Grupo_pos"].astype("int64")
@@ -92,7 +83,7 @@ def carregar_dados(caminho=CAMINHO_DADOS):
 
 
 def dividir_treino_teste(X, y, test_size=TEST_SIZE, random_state=RANDOM_STATE):
-    """Split estratificado único (feedback #1). O teste é tocado uma só vez."""
+    """Split estratificado único. O teste é tocado uma só vez."""
     return train_test_split(
         X, y, test_size=test_size, random_state=random_state, stratify=y
     )
@@ -121,8 +112,8 @@ def construir_pipeline(modelo, X, escalar=False, usar_smote=False,
 
     * escalar=True acrescenta StandardScaler (útil p.ex. na Regressão Logística).
     * usar_smote=True usa a Pipeline do imbalanced-learn, para o SMOTE ser
-      aplicado só no fit (folds de treino) e nunca à validação/teste
-      (feedback #4). O SMOTE entra depois do pré-processamento, já com dados
+      aplicado só no fit (folds de treino) e nunca à validação/teste. 
+      O SMOTE entra depois do pré-processamento, já com dados
       numéricos e imputados.
     """
     passos = [("prep", construir_preprocessador(X))]
@@ -148,7 +139,7 @@ def _scores(pipeline, X):
 def avaliar_teste(pipeline, X_test, y_test, titulo="", plot=True):
     """Avaliação final no teste: matriz de confusão + report + AUC.
 
-    A AUC é calculada a partir de PROBABILIDADES (feedback #2), não das
+    A AUC é calculada a partir de probabildiades, não das
     classes previstas.
     """
     from sklearn.metrics import (classification_report, confusion_matrix,
@@ -175,10 +166,10 @@ def avaliar_teste(pipeline, X_test, y_test, titulo="", plot=True):
 
 def validacao_cruzada_treino(pipeline, X_train, y_train, n_splits=5,
                              random_state=RANDOM_STATE):
-    """Validação cruzada estratificada usando APENAS o treino (feedback #1).
+    """Validação cruzada estratificada usando APENAS o treino.
 
     Devolve as previsões e as probabilidades out-of-fold e imprime o report e
-    a AUC (calculada a partir das probabilidades — feedback #2).
+    a AUC.
     """
     from sklearn.model_selection import StratifiedKFold, cross_val_predict
     from sklearn.metrics import classification_report, roc_auc_score
