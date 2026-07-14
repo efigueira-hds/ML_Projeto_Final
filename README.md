@@ -170,4 +170,5 @@ selection, metrics) · **imbalanced-learn** (SMOTE) · **matplotlib** / **seabor
 ## Author
 
 **Eduardo** · GitHub: [@Edweirdo-pt](https://github.com/Edweirdo-pt)
-<!-- Add your LinkedIn / email here if you want recruiters to reach you directly. -->
+LinkedIn: (https://www.linkedin.com/in/efigueira-hds/)
+
