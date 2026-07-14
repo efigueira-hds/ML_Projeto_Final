@@ -16,7 +16,9 @@ Este módulo centraliza a lógica e separa dois tipos de transformação:
 
 import numpy as np
 import pandas as pd
+import warnings
 
+from sklearn.exceptions import DataConversionWarning
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
@@ -181,3 +183,13 @@ def validacao_cruzada_treino(pipeline, X_train, y_train, n_splits=5,
     print(classification_report(y_train, pred, digits=4))
     print("AUC CV (probabilidades):", round(roc_auc_score(y_train, proba), 4))
     return pred, proba
+
+
+
+# Silencia apenas o aviso de categorias desconhecidas do OneHotEncoder
+# (esperado: dataset pequeno + Grupo_pre esparsa em alguns folds da CV).
+warnings.filterwarnings(
+    "ignore",
+    message="Found unknown categories",
+    category=UserWarning,
+)
