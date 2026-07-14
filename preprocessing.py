@@ -58,9 +58,14 @@ def carregar_dados(caminho=CAMINHO_DADOS):
     # clínico legítimo em nenhuma das variáveis) -> substituir por NaN.
     df = df.replace(999, np.nan)
 
-    # Casos sem Grupo_pre não permitem definir o target -> remover.
-    df = df.dropna(subset=["Grupo_pre"])
+    # O target depende de Grupo_pre E Grupo_pos. Removem-se os casos sem qualquer
+    # um deles: caso contrário, com Grupo_pos ausente, `Grupo_pre != NaN` seria
+    # sempre True (o pandas trata NaN como diferente de tudo) e a linha seria
+    # rotulada como mudança=1 de forma errada. Nos dados atuais Grupo_pos não tem
+    # ausentes, mas isto garante rótulos corretos se os dados mudarem.
+    df = df.dropna(subset=["Grupo_pre", "Grupo_pos"])
     df["Grupo_pre"] = df["Grupo_pre"].astype("int64")
+    df["Grupo_pos"] = df["Grupo_pos"].astype("int64")
 
     # Recodificação de Sexo (1/2 -> 0/1) para não induzir hierarquia no modelo.
     df["Sexo"] = df["Sexo"].replace({1: 0, 2: 1})
