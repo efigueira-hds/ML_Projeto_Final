@@ -84,11 +84,11 @@ are **not** imputed here — that is left to the pipeline (see leakage note abov
 | Path | What it contains |
 |---|---|
 | [`preprocessing.py`](preprocessing.py) | Shared module: deterministic data loading, the `Pipeline`/`ColumnTransformer` builder, SMOTE integration, and evaluation helpers. |
-| `1.EDA.ipynb` | Exploratory data analysis — distributions, outliers, missing-value strategy, correlation analysis, and statistical tests (Mann-Whitney U, Spearman) of each feature vs. the target. |
-| `2.Modelação.ipynb` | Baseline comparison of the three models on a common pipeline. |
-| `RL_limpo.ipynb` | **Logistic Regression** — the main model: tuning (`GridSearchCV`), coefficient interpretation, threshold analysis, SMOTE, and the final model. |
-| `AD_final.ipynb` | **Decision Tree** — depth tuned by cross-validation to control overfitting. |
-| `RF.ipynb` | **Random Forest** — feature-reduction study, tuning, and SMOTE. |
+| `01_EDA.ipynb` | Exploratory data analysis — distributions, outliers, missing-value strategy, correlation analysis, and statistical tests (Mann-Whitney U, Spearman) of each feature vs. the target. |
+| `02_modelation.ipynb` | Baseline comparison of the three models on a common pipeline. |
+| `03_logistic_regression.ipynb` | **Logistic Regression** — the main model: tuning (`GridSearchCV`), coefficient interpretation, threshold analysis, SMOTE, and the final model. |
+| `04_decision_tree.ipynb` | **Decision Tree** — depth tuned by cross-validation to control overfitting. |
+| `05_random_forest.ipynb` | **Random Forest** — feature-reduction study, tuning, and SMOTE. |
 
 ---
 
@@ -150,8 +150,7 @@ pip install pandas numpy scikit-learn imbalanced-learn matplotlib seaborn openpy
 #    ML_Ortopedia_CPAK.xlsx
 
 # 3. Run the notebooks in order (each runs top-to-bottom from a clean kernel):
-#    1.EDA.ipynb  →  2.Modelação.ipynb  →  RL_limpo.ipynb / AD_final.ipynb / RF.ipynb
-jupyter notebook
+#    01_EDA.ipynb → 02_modelation.ipynb → 03_logistic_regression.ipynb → 04_decision_tree.ipynb → 05_random_forest.ipynb  
 ```
 
 The model notebooks import `preprocessing.py` and load the raw Excel directly, so they do
