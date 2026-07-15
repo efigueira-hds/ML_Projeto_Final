@@ -17,10 +17,10 @@ of class imbalance — all wrapped in reusable scikit-learn pipelines.
 
 ---
 
-## Why this project is worth a look
+## Project approach
 
-This is not just "fit three models and print accuracy". The pipeline is engineered to avoid
-the mistakes that quietly inflate ML results:
+The emphasis is on avoiding the mistakes that quietly inflate ML results on small,
+imbalanced clinical datasets:
 
 - **No data leakage.** Preprocessing is split into two tiers: *deterministic / domain*
   transforms applied before the train/test split, and *learned* transforms (median
@@ -52,6 +52,28 @@ patient is assigned a CPAK group **before** surgery (`Grupo_pre`) and **after** 
 
 The task is to anticipate this change using **only information available before surgery**, so
 all post-operative measurements are deliberately excluded from the feature set.
+
+---
+
+### Data dictionary
+
+| Variable | Description | Scale |
+|---|---|---|
+| `Idade` | Age at surgery | years |
+| `Sexo` | Sex (recoded 1/2 → 0/1) | binary |
+| `Peso` / `Altura_cm` | Weight / height | kg / cm |
+| `IMC` | BMI, recomputed from weight and height | kg/m² |
+| `Grupo_pre` | Pre-operative CPAK phenotype group | categorical |
+| `Fle_0` | Knee flexion range of motion, baseline | degrees |
+| `EVA_0` | Pain, visual analogue scale, baseline | 0–10 |
+| `PM6_0` | 6-minute walk test, baseline | metres |
+| `WD_0` | WOMAC **pain** subscale (5 items), baseline | 0–20 |
+| `WR_0` | WOMAC **stiffness** subscale (2 items), baseline | 0–8 |
+| `WAtotal_0` | WOMAC **physical function** subscale (17 items), baseline — despite the name, this is the function subscale, not a total | 0–68 |
+| `WT_0` | WOMAC **total** score (24 items) = pain + stiffness + function | 0–96 |
+
+Higher WOMAC scores indicate worse symptoms. Variables suffixed `_90` are the same measures
+at 90 days post-operative and are excluded from the feature set as leakage.
 
 ---
 
@@ -131,12 +153,21 @@ more stable estimate of generalisation.
 | Decision Tree — baseline (unbounded, overfits) | 0.56 | 0.59 |
 | Decision Tree — depth tuned (`max_depth = 4`) | 0.54 | 0.78 |
 
-**Reading the results.** Limiting the decision tree's depth lifts CV-AUC from **0.59 → 0.78**
-while eliminating the tell-tale train-accuracy-of-1.0 overfit — a clear demonstration of
-regularisation. SMOTE improved test AUC in some configurations but was **unstable across
-folds** given the tiny minority class, and is reported transparently rather than cherry-picked.
-The confusion-matrix analysis in each notebook shows the precision/recall trade-off for the
-rare class, which matters more here than headline accuracy on an imbalanced target.
+
+**Reading the results.** With only 8 positives in the test set, test-AUC differences of ±0.02
+are within noise — the drop from 0.72 → 0.71 (Logistic Regression) or 0.56 → 0.54 (Decision
+Tree) after tuning should not be read as tuning "hurting" performance: a single observation
+changing rank moves the metric by more than that. The cross-validated AUC on the training set
+is the more stable estimate, but for the *tuned* rows it is optimistic by construction — the
+hyper-parameters were selected to maximise that same CV score, so it is not an unbiased
+estimate of generalisation (nested CV would be needed for that). The comparison that survives
+both caveats is the decision tree: limiting depth lifts CV-AUC from 0.59 → 0.78 and removes
+the train-accuracy-of-1.0 overfit — regularisation doing exactly what it should. SMOTE
+improved test AUC in some configurations but was unstable across folds given the tiny minority
+class; the per-model with/without comparisons are reported in the notebooks rather than
+cherry-picked here. The confusion-matrix analysis in each notebook shows the precision/recall
+trade-off for the rare class, which matters more here than headline accuracy on an imbalanced
+target.
 
 ---
 
@@ -168,5 +199,5 @@ selection, metrics) · **imbalanced-learn** (SMOTE) · **matplotlib** / **seabor
 
 ## Author
 
-**Eduardo** · GitHub: [@Edweirdo-pt](https://github.com/Edweirdo-pt) · LinkedIn: https://www.linkedin.com/in/efigueira-hds/
+**Eduardo** · GitHub: [@Edweirdo-pt](https://github.com/Edweirdo-pt) · LinkedIn: [@efigueira-hds](https://www.linkedin.com/in/efigueira-hds/)
 
